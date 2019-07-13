@@ -11,6 +11,7 @@
 1. [从零开始学JS之数据类型](https://github.com/wangqiutuner/Blog/issues/2)
 2. [从零开始学JS之字符串](https://github.com/wangqiutuner/Blog/issues/3)
 3. [从零开始学JS之数组](https://github.com/wangqiutuner/Blog/issues/4)
+4. [从零开始学JS之对象](https://github.com/wangqiutuner/Blog/issues/7)
 
 ## 从零开始学css目录
 
