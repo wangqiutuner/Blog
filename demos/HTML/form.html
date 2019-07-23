@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单登录</title>
+</head>
+
+<body>
+    <nav>
+        <a href="">导航1</a>
+        <a href="">导航2</a>
+        <a href="">导航3</a>
+        <a href="">导航4</a>
+    </nav>
+    <!-- form + type=submit ：回车自动登录 -->
+    <!-- novalidate不使用浏览器自己的验证 -->
+    <form novalidate>
+        <fieldset>
+            <legend>登录</legend>
+            <p>
+                <!-- 默认text类型，可以不加 -->
+                <!-- JS行为影响autofocus,会捣乱索引顺序，所以还需要加上 tabindex 来控制切换的顺序 -->
+                <input name="account" placeholder="帐号/手机" required tabindex="1" autofocus>
+            </p>
+            <p>
+                <input type="password" name="password" placeholder="密码" tabindex="2" required>
+                <a href>忘记密码</a>
+            </p>
+            <p>
+                <!-- autocomplete取消浏览器自己的下拉选项提示 -->
+                <input name="code" placeholder="验证码" autocomplete="off" tabindex="3" required>
+                <!-- alt如果无法显示图像，浏览器将显示替代文本 -->
+                <img src="" alt="验证码">
+            </p>
+            <button type="submit" tabindex="4">登录</button>
+            <a href="">立即注册</a>
+        </fieldset>
+    </form>
+    <ol>
+        <li>&lt;form&gt; + submit</li>
+        <li>&lt;fieldset&gt; + &lt;legendt&gt;</li>
+        <li>placeholder</li>
+        <li>name</li>
+        <li>required验证</li>
+        <li>autocomplete="off"</li>
+        <li>tabindex/autofocus</li>
+        <li>type="text"可以缺省</li>
+        <li>忘记密码，立即注册最好使用&lt;a&gt;</li>
+    </ol>
+</body>
+
+</html>
