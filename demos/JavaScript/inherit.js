@@ -1,4 +1,4 @@
-//原型链继承
+//一、原型链继承
 function Parent() {
     this.name = "kevin";
 }
@@ -15,7 +15,7 @@ var c = new Child();
 
 console.log(c.getName()); // kevin
 
-//构造函数继承
+//二、构造函数继承
 function Parent() {
     this.names = ['kevin', 'daisy'];
 }
@@ -31,7 +31,7 @@ console.log(c1.names); // ["kevin", "daisy", "yayu"]
 var c2 = new Child();
 console.log(c2.names); // ["kevin", "daisy"]
 
-//组合继承
+//三、组合继承
 function Parent(name) {
     this.name = name;
     this.colors = ["red", "blue", "green"];
@@ -61,7 +61,7 @@ console.log(c2.age); // 20
 console.log(c2.colors); // ["red", "blue", "green"]
 c2.getName(); // daisy
 
-//原型式继承
+//四、原型式继承
 function createObj(o) {
     function F() {}
     F.prototype = o;
@@ -82,7 +82,7 @@ console.log(p2.name); // "kevin"
 p1.friends.push("taylor");
 console.log(p2.friends); // ["daisy", "kelly", "taylor"]
 
-//寄生式继承
+//五、寄生式继承
 function createObj(o) {
     var clone = Object.create(o);
     clone.sayName = function () {
@@ -99,7 +99,7 @@ var persion = {
 var anotherPerson = createObj(persion);
 anotherPerson.sayName(); // kevin,hi
 
-//寄生组合式继承
+//六、寄生组合式继承
 function Parent(name) {
     this.name = name;
     this.colors = ["red", "blue", "green"];
@@ -132,7 +132,7 @@ console.log(c2.age); // 20
 console.log(c2.colors); // ["red", "blue", "green"]
 c2.getName(); // daisy
 
-//Class继承
+//七、Class继承
 class Parent {
     constructor(name) {
         this.name = name;
