@@ -12,6 +12,7 @@
 2. [从零开始学JS之字符串](https://github.com/wangqiutuner/Blog/issues/3)
 3. [从零开始学JS之数组](https://github.com/wangqiutuner/Blog/issues/4)
 4. [从零开始学JS之对象](https://github.com/wangqiutuner/Blog/issues/7)
+5. [从零开始学JS之DOM](https://github.com/wangqiutuner/Blog/issues/8)
 
 ## 从零开始学css目录
 
