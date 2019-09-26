@@ -4,7 +4,7 @@
 
 博客内容旨在建立完善的基础知识体系。
 
-目前打算写两个系列的文章，一个是从零开始学js，另一个是从零开始学js。
+目前打算写两个系列的文章，一个是从零开始学js，另一个是从零开始学css。
 
 ## 从零开始学js目录
 
@@ -13,6 +13,7 @@
 3. [从零开始学JS之数组](https://github.com/wangqiutuner/Blog/issues/4)
 4. [从零开始学JS之对象](https://github.com/wangqiutuner/Blog/issues/7)
 5. [从零开始学JS之DOM](https://github.com/wangqiutuner/Blog/issues/8)
+6. [从零开始学JS之事件](https://github.com/wangqiutuner/Blog/issues/9)
 
 ## 从零开始学css目录
 

@@ -212,6 +212,7 @@ var textNode = document.createTextNode("<strong>Hello</strong> world!");
 ## 六、 `ParentNode`
 
 > `ParentNode` 混合了所有(拥有子元素的) `Node` 对象包含的共有方法和属性。
+> 
 > `ParentNode` 是一个原始接口，不能够创建这种类型的对象；它在 `Element`、`Document` 和 `DocumentFragment` 对象上被实现。
 
 使用 `ParentNode` 主要是使用其中的一些方便的方法与属性：
