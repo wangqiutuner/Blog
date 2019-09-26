@@ -14,6 +14,7 @@
 4. [从零开始学JS之对象](https://github.com/wangqiutuner/Blog/issues/7)
 5. [从零开始学JS之DOM](https://github.com/wangqiutuner/Blog/issues/8)
 6. [从零开始学JS之事件](https://github.com/wangqiutuner/Blog/issues/9)
+7. [从零开始学JS之函数](https://github.com/wangqiutuner/Blog/issues/10)
 
 ## 从零开始学css目录
 
