@@ -2,7 +2,7 @@
 
 **文档对象模型 (DOM)** 是 `HTML` 和 `XML` 文档的编程接口。它提供了对文档的结构化的表述，并定义了一种方式可以使从程序中对该结构进行访问，从而改变文档的结构，样式和内容。
 
-DOM 按照 W3C 的标准分为了三个级别：DOM1级、DOM2级、DOM3级。除了上面三个等级外，还有未成标准前的 DOM0级。本文将不按照分级对DOM进行讨论，只描述一些常用的使用方式。
+DOM 按照 W3C 的标准分为了三个级别：DOM1级、DOM2级、DOM3级（IE9+）。除了上面三个等级外，还有未成标准前的 DOM0级。本文将不按照分级对DOM进行讨论，只描述一些常用的使用方式。
 
 ## 一、结点类型
 
@@ -32,8 +32,10 @@ if (someNode.nodeType == Node.ELEMENT_NODE){   // 在IE中无效
 - `lastChild`：返回该节点的最后一个子节点 `Node`，如果该节点没有子节点则返回 `null`。
 - `childNodes`：返回一个包含了该节点所有子节点的实时的 `NodeList`。`NodeList` 是“实时的”意思是，如果该节点的子节点发生了变化，`NodeList` 对象就会自动更新。
 - `parentNode`：返回一个当前结点 `Node` 的父节点 。如果没有这样的结点,，比如说像这个节点是树结构的顶端或者没有插入一棵树中， 这个属性返回 `null`。
+- `parentElement`：返回一个当前节点的父节点 `Element`。 如果当前节点没有父节点或者说父节点不是一个元素(`Element`), 这个属性返回 `null`。
 - `nextSibling`：返回与该节点同级的下一个节点 `Node`，如果没有返回 `null`。
 - `previousSibling`：返回一个当前节点同辈的前一个结点( `Node`) ，或者返回 `null`（如果不存在这样的一个节点的话）。
+- `textContent`：返回或设置一个元素内所有子结点及其后代的文本内容。
 
 ### `Node` 方法
 
@@ -68,6 +70,7 @@ if (someNode.nodeType == Node.ELEMENT_NODE){   // 在IE中无效
 
 前面介绍的四个方法操作的都是某个节点的子节点，也就是说，要使用这几个方法必须先取得父节点（使用 `parentNode` 属性）。另外，并不是所有类型的节点都有子节点，如果在不支持子节点的节点上调用了这些方法，将会导致错误发生。
 
+- `Node.contains()`：返回的是一个布尔值，来表示传入的节点是否为该节点的后代节点。
 - `Node.compareDocumentPosition()`：比较当前节点与文档中的另一节点的位置。
 
 ## 二、`Document` 类型
@@ -103,6 +106,7 @@ JavaScript 通过 `Document` 类型表示文档。在浏览器中，`document` �
 - `Document.createElement()`：用标签名创建一个新的 `element`。
 - `Document.createAttribute()`：创建一个新的 `Attr` 对象并返回（一般不使用）。
 - `document.createTextNode()`：创建一个新的文本节点。
+- `document.createDocumentFragment()`：创建一个新的空白的文档片段。不会引起回流。
 
 **q_qiu**：`innerHTML` 和 `createTextNode` 的区别
 
@@ -119,6 +123,16 @@ JavaScript 通过 `Document` 类型表示文档。在浏览器中，`document` �
 **q_qiu**：`HTMLCollection` 和 `NodeList` 都是类数组对象。 `Document.getElementsByTagName()` 返回的是 `HTMLCollection`， `Node.childNodes` 和 `Document.querySelectorAll()` 返回的是 `NodeList`。它们都可以通过以下两种方式访问：
 - `list.item(1)`
 - `list[1]`
+
+`HTMLCollection` 还提供了直接通过 id 访问的方式
+
+```javascript
+var elem1 = document.forms["myForm"];
+var elem2 = document.forms.namedItem("myForm");
+
+alert(elem1 === elem2); // 显示 "true"
+```
+
 ---
 
 - `Document.querySelector()`：返回文档中与指定选择器或选择器组匹配的第一个 html 元素 `Element`。 如果找不到匹配项，则返回 `null`。
@@ -155,6 +169,11 @@ elt.setAttribute("style", "color:red; border: 1px solid blue;");
 
 // 设置特定样式，同时保持其他内联样式值不变
 elt.style.color = "blue";
+
+// 操作方法
+var value = elt.getPropertyValue('margin'); // "1px 2px"
+elt.setProperty('margin', '1px 2px');
+var oldValue = elt.removeProperty('margin');// "1px 2px"
 ```
 
 ### `Element` 属性
@@ -212,13 +231,13 @@ var textNode = document.createTextNode("<strong>Hello</strong> world!");
 ## 六、 `ParentNode`
 
 > `ParentNode` 混合了所有(拥有子元素的) `Node` 对象包含的共有方法和属性。
-> 
+>
 > `ParentNode` 是一个原始接口，不能够创建这种类型的对象；它在 `Element`、`Document` 和 `DocumentFragment` 对象上被实现。
 
 使用 `ParentNode` 主要是使用其中的一些方便的方法与属性：
 
 - `ParentNode.children`：返回一个包含父节点所有 `Element` 类型的后代的动态html集合 `HTMLCollection`。
-- `ParentNode.append()`：在父节点的最后一个后代后面插入一组 `Node` 对象或 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
+- `ParentNode.append()`（IE✖）：在父节点的最后一个后代后面插入一组 `Node` 对象或 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
 
 ---
 **q_qiu**：与 `Node.appendChild()` 的差异：
@@ -228,7 +247,7 @@ var textNode = document.createTextNode("<strong>Hello</strong> world!");
 - `ParentNode.append()` 可以追加几个节点和字符串，而 `Node.appendChild()` 只能追加一个节点。
 ---
 
-`ParentNode.prepend()`：在父节点第一个后代前插入一组 `Node` 对象或者 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
+`ParentNode.prepend()`（IE✖）：在父节点第一个后代前插入一组 `Node` 对象或者 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
 
 ## 七、 CSSOM视图模式
 
