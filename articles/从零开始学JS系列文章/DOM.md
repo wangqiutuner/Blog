@@ -116,11 +116,12 @@ JavaScript 通过 `Document` 类型表示文档。在浏览器中，`document` �
 ### 查找结点
 
 - `Document.getElementById()`：返回一个匹配特定 ID 的元素，没有找到返回 `null`。
-    - 不同于其他 `Element` 查找方法（如 `Document.querySelector()` 以及   `Document.querySelectorAll()`），`getElementById()` 只有在作为 `document` 的方法时才能起作用，而在DOM中的其他元素下无法生效。
+- 不同于其他 `Element` 查找方法（如 `Document.querySelector()` 以及   `Document.querySelectorAll()`），`getElementById()` 只有在作为 `document` 的方法时才能起作用，而在DOM中的其他元素下无法生效。
 - `Document.getElementsByTagName()`：返回一个 **动态** 的包含所有指定标签名的元素的HTML集合 `HTMLCollection` 。
   
 ---
 **q_qiu**：`HTMLCollection` 和 `NodeList` 都是类数组对象。 `Document.getElementsByTagName()` 返回的是 `HTMLCollection`， `Node.childNodes` 和 `Document.querySelectorAll()` 返回的是 `NodeList`。它们都可以通过以下两种方式访问：
+
 - `list.item(1)`
 - `list[1]`
 
@@ -179,7 +180,7 @@ var oldValue = elt.removeProperty('margin');// "1px 2px"
 ### `Element` 属性
 
 - `Element.innerHTML`：设置或获取HTML语法表示的元素的后代。
-    - 建议不要使用 `innerHTML` 。取而代之的是使用 [`Node.textContent`](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/textContent)
+- 建议不要使用 `innerHTML` 。取而代之的是使用 [`Node.textContent`](https://developer.mozilla.org/zh-CN/docs/Web/API/Node/textContent)
 
 ```javascript
 // HTML 5 中指定不执行由 innerHTML 插入的 <script> 标签。
@@ -245,6 +246,7 @@ var textNode = document.createTextNode("<strong>Hello</strong> world!");
 - `ParentNode.append()` 允许追加 `DOMString` 对象，而 `Node.appendChild()` 只接受 `Node` 对象。
 - `ParentNode.append()` 没有返回值，而 `Node.appendChild()` 返回追加的 `Node` 对象。
 - `ParentNode.append()` 可以追加几个节点和字符串，而 `Node.appendChild()` 只能追加一个节点。
+
 ---
 
 `ParentNode.prepend()`（IE✖）：在父节点第一个后代前插入一组 `Node` 对象或者 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
