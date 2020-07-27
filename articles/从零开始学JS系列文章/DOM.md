@@ -241,6 +241,7 @@ var textNode = document.createTextNode("<strong>Hello</strong> world!");
 - `ParentNode.append()`（IE✖）：在父节点的最后一个后代后面插入一组 `Node` 对象或 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
 
 ---
+
 **q_qiu**：与 `Node.appendChild()` 的差异：
 
 - `ParentNode.append()` 允许追加 `DOMString` 对象，而 `Node.appendChild()` 只接受 `Node` 对象。
