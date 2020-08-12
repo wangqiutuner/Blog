@@ -193,12 +193,12 @@ el.innerHTML = name; // shows the alert
 ```
 
 - `Element.outerHTML`：设置或获取描述元素（包括其后代）的序列化HTML片段。
-- `Element.classList`：是一个只读属性，返回一个元素的类属性的实时 `DOMTokenList` 集合。(H5新增)
-- ```add( String [, String] )```：添加指定的类值。如果这些类已经存在于元素的属性中，那么它们将被忽略。
-- ```remove( String [,String] )```：删除指定的类值。
-- ```item ( Number )```：按集合中的索引返回类值。
-- ```contains( String )```：检查元素的类属性中是否存在指定的类值。
-- ```replace( oldClass, newClass )```：用一个新类替换已有类。
+- `Element.classList`：是一个只读属性，返回一个元素的类属性的实时 `DOMTokenList` 集合。(H5新增，存在兼容问题慎用)
+  - ```add( String [, String] )```：添加指定的类值。如果这些类已经存在于元素的属性中，那么它们将被忽略。
+  - ```remove( String [,String] )```：删除指定的类值。
+  - ```item ( Number )```：按集合中的索引返回类值。
+  - ```contains( String )```：检查元素的类属性中是否存在指定的类值。
+  - ```replace( oldClass, newClass )```：用一个新类替换已有类。
   
 ### `Element` 方法
 
