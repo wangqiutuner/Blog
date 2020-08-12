@@ -138,4 +138,4 @@ input,textarea,img,video,object{
 
 ## github上存在显示问题
 
-在github的md文件中无法显示某些Html标签属性和内联样式，如果存在问题请在[Box类属性](https://github.com/wangqiutuner/Blog/blob/master/articles/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6JS%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0/%E5%AD%97%E7%AC%A6%E4%B8%B2.md)页面下载该markdown文件进行查阅。
+在github的md文件中无法显示某些Html标签属性和内联样式，如果存在问题请在[Box类属性](https://github.com/wangqiutuner/Blog/blob/master/articles/CSS3%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0/Box%E7%B1%BB%E5%B1%9E%E6%80%A7.md)页面下载该markdown文件进行查阅。
