@@ -159,7 +159,11 @@ alert(elem1 === elem2); // 显示 "true"
 - `lang`，元素内容的语言代码，很少使用。
 - `dir`，语言的方向，值为 "`ltr`"（left-to-right，从左至右）或 "`rtl`"（right-to-left，从右至左），也很少使用。
 - `className`，与元素的 `class` 特性对应，即为元素指定的 CSS 类。没有将这个属性命名为 `class`，是因为 `class` 是 JavaScript 的保留字。
-- `style`，获取/设置元素的style属性。
+- `style`，获取/设置元素的style属性，表示为 `CSSStyleDeclaration` 它是一个CSS声明块，CSS属性键值对的集合。
+  - `cssText`：属性，IE兼容性存在疑问。
+  - `getPropertyValue`：方法，返回属性值。
+  - `setProperty`：方法，设置新的属性值。
+  - `removeProperty`：方法，删除属性。
 
 ```javascript
 // 注意不能通过直接给style属性设置字符串来设置style，因为style应被当成是只读的
@@ -171,10 +175,10 @@ elt.setAttribute("style", "color:red; border: 1px solid blue;");
 // 设置特定样式，同时保持其他内联样式值不变
 elt.style.color = "blue";
 
-// 操作方法
-var value = elt.getPropertyValue('margin'); // "1px 2px"
-elt.setProperty('margin', '1px 2px');
-var oldValue = elt.removeProperty('margin');// "1px 2px"
+// 操作方法（兼容性较好，建议使用）
+var value = elt.style.getPropertyValue('margin'); // "1px 2px"
+elt.style.setProperty('margin', '1px 2px');
+var oldValue = elt.style.removeProperty('margin');// "1px 2px"
 ```
 
 ### `Element` 属性
