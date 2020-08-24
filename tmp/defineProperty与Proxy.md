@@ -298,7 +298,7 @@ class Watcher {
 
 在观察者模式运作中，可以发现一共需要5个步骤：创建订阅者Dep、创建观察者Watcher、资源对象设置（可以没有）、添加订阅者的观察者、订阅者通知观察者。下面从这些角度来看如何实现Vue的响应式原理。
 
-上边讲到，在Data对象的属性中，当 `getter` 触发时，将当前的Watcher对象存入 `dep` 的 `subs` 中。而当 `setter` 触发时，将会调用Dep的 `notify()` 方法来通知观察者Watcher更新视图。目前关键在于何时创建订阅者Dep与观察者Watcher。
+上边讲到，在Data对象的属性中，当 `getter` 触发时，将当前的Watcher对象存入Dep的 `subs` 中。而当 `setter` 触发时，将会调用Dep的 `notify()` 方法来通知观察者Watcher更新视图。目前关键在于何时创建订阅者Dep与观察者Watcher。
 
 ```javascript
 class Observer{
@@ -315,12 +315,16 @@ class Observer{
             this.defineReactive(data,key,data[key]);
         })
     }
-    defineReactive(obj,key,val){
+    defineReactive(obj, key, val){
+        // 为每个属性创建Dep
+        const dep = new Dep();
         Object.defineProperty(obj,key,{
             enumerable:true,
             configurable:false,
             get(){
-                dep.add(watch);
+                if(Dep.target){
+                    dep.add(Dep.target);   // 绑定观察者watcher
+                }
                 return val;
             }
             set(newValue){
@@ -333,3 +337,111 @@ class Observer{
     }
 }
 ```
+
+上述代码中有两个可能存在疑问的地方，分别对应着创建Dep和创建Watcher。
+
+```javascript
+// 为每个属性创建Dep
+const dep = new Dep();
+```
+
+创建订阅者Dep是在Vue初始化阶段，在进行数据的get、和set绑定时，并创建了一个Dep对象。
+
+```javascript
+if(Dep.target){
+    dep.add(Dep.target);   // 绑定观察者watcher
+}
+```
+
+上面说到，当 `getter` 方法触发时会将当前的Watcher对象绑定到订阅者Dep上。这里一般使用 `Dep.target` 来保存当前的Watcher对象。`target` 是订阅者Dep的一个静态属性。
+
+```javascript
+class Dep {
+    static target = null;
+
+    constructor () {
+        // 用来存放Watcher对象的数组
+        this.subs = [];
+    }
+
+    addSub (sub) {
+        this.subs.push(sub);
+    }
+
+    // 通知所有Watcher对象更新视图
+    notify () {
+        this.subs.forEach((sub) => {
+            sub.update();
+        })
+    }
+}
+```
+
+知道了由 `Dep.target` 来保存当前Watcher对象后，我们依然不知道Watcher对象是什么时候创建的。从生命周期的角度来说，Watcher对象是在 `beforeMount` 之后，`mounted` 之前。其中Watcher对象实例化时，调用了 `_render` 方法，实现了 `dom` 的渲染，详细的过程，将在Vue系列文章中介绍。
+
+Watcher对象创建时便将其保存至 `Dep.target`。
+
+```javascript
+class Watcher {
+    constructor(){
+        Dep.target = this;
+    }
+    // 更新视图
+    update(){
+        console.log('视图更新');
+    }
+}
+```
+
+目前了解到，每一个组件默认都会创建一个Watcher，自定义的watch和computed方法也会创建Watcher。
+
+至此，vue响应式原理的整个过程也就清晰了：
+
+1. 在Vue对象初始化时，通过 `defineProperty` 来监听 `data` 中的数据变化，同时创建订阅者对象Dep。
+2. 编译模版，创建Watcher，并将 `Dep.target` 指向当前Watcher
+3. Watcher对象实例化时，会进行DOM的渲染，如果使用了 `data` 中的数据，会触发 `getter` 方法，将观察者对象Watcher绑定到订阅者对象上。
+4. 数据更新时，会触发 `data` 的 `setter` 方法，通知使用到该属性的所有Watcher去更新DOM。
+
+**参考资料**：
+
+- [图解 Vue 响应式原理](https://juejin.im/post/6857669921166491662#heading-2)
+
+## 四、`Proxy`
+
+使用 `defineProperty()` 只能监控属性的 `getter` 和 `setter`。ES6的 `Proxy` 提供了多种行为的监控，例如in、delete、函数调用等。
+
+ES6原生提供 `Proxy` 构造函数，用来生成 `Proxy` 实例
+
+```javascript
+var proxy = new Proxy(target, handler);
+```
+
+`target` 表示要拦截的目标对象，`handle` 用来定制拦截行为，监控返回的 `Proxy` 实例中的属性变化。
+
+**示例：**
+
+```javascript
+var proxy = new Proxy({}, {
+    get: function(obj, prop){
+        console.log('设置get操作');
+        return obj[prop];
+    },
+    set: function(obj, prop, value){
+        console.log('设置set操作');
+        obj[prop] = value;
+    }
+});
+
+proxy.a = 1;    // 设置set操作
+console.log(proxy.a);   // 设置get操作  // 1
+```
+
+更多的拦截行为可以查看 [ECMAScript 6 入门](https://es6.ruanyifeng.com/#docs/proxy)。
+
+`defineProperty` 和 `proxy` 有以下几点区别：
+
+- `defineProperty` 只能对属性的 `getter` 和 `setter` 行为进行监听，而 `Proxy` 可以对多种行为进行监听。
+- `defineProperty` 一次只能以对象的一个属性进行监听，而 `Proxy` 可以对对象的全部属性进行监听。可以使用 [defineProperties](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties) 对对象的多条属性进行监听，不过需要指明要监听的属性名。另外 `defineProperty` 无法监听数组。
+- `defineProperty` 修改原对象即可触发拦截，而 `Proxy` 必须触发代理对象才能触发拦截。
+
+正如我们所了解到的，vue3.0的响应式原理将由 `Proxy` 来实现，这一部分的内容，将在后面进行讲述。
