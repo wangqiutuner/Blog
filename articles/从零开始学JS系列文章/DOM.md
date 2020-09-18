@@ -105,8 +105,8 @@ JavaScript 通过 `Document` 类型表示文档。在浏览器中，`document` �
 
 - `Document.createElement()`：用标签名创建一个新的 `element`。
 - `Document.createAttribute()`：创建一个新的 `Attr` 对象并返回（一般不使用）。
-- `document.createTextNode()`：创建一个新的文本节点。
-- `document.createDocumentFragment()`：创建一个新的空白的文档片段。不会引起回流。
+- `Document.createTextNode()`：创建一个新的文本节点。
+- `Document.createDocumentFragment()`：创建一个新的空白的文档片段。不会引起回流。
 
 **q_qiu**：`innerHTML` 和 `createTextNode` 的区别
 
@@ -254,7 +254,7 @@ var textNode = document.createTextNode("<strong>Hello</strong> world!");
 
 ---
 
-`ParentNode.prepend()`（IE✖）：在父节点第一个后代前插入一组 `Node` 对象或者 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
+- `ParentNode.prepend()`（IE✖）：在父节点第一个后代前插入一组 `Node` 对象或者 `DOMString` 对象。`DOMString` 对象会以同等的 `Text` 节点插入
 
 ## 七、 CSSOM视图模式
 
