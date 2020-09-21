@@ -46,3 +46,6 @@ history.scrollRestoration && history.scrollRestoration = 'auto';
 ```
 
 **方法**：
+
+- **`History.back()`**：返回上一页，等价于 `history.go(-1)`。
+- **`History.forward()`**：前往下一页，等价于 `history.go(1)`。
