@@ -49,3 +49,21 @@ history.scrollRestoration && history.scrollRestoration = 'auto';
 
 - **`History.back()`**：返回上一页，等价于 `history.go(-1)`。
 - **`History.forward()`**：前往下一页，等价于 `history.go(1)`。
+- **`History.go()`**：通过当前页面的相对位置从会话历史中加载页面。
+- **`History.pushState()`**：按照指定的名称和URL将数据保存至会话历史，会话历史长度+1。
+
+> ```history.pushState(state, title[, url])```
+>
+> **参数(`state`)**：新会话下的状态对象。
+>
+> **参数(`title`)**：新会话的名称，目前大多数浏览器忽略此参数，建议将其置为空字符串。
+>
+> **参数(`url`) | 可选**：新会话的地址，必须是同源的。如果未指定，则为当前地址。
+
+**q_qiu**：`History.pushState()` 方法调用后只会更新url不会刷新页面。并且由该方法跳转的路由，在前进和后退时也不会改变文档内容。但是使用 `popstate` 事件可以监听该方式下的路由跳转。
+
+- **`History.replaceState()`**：覆盖会话历史中的当前会话，会话历史长度保持不变。
+
+**相关事件**：
+
+- **`window.onpopstate`**：在文档不变的情况下，监听路由的变化。主要包括前进、后退以及路由锚点的变化。事件对象的 `state` 属性表示当前会话的状态对象。
