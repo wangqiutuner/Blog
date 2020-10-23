@@ -95,7 +95,7 @@ JavaScript 通过 `Document` 类型表示文档。在浏览器中，`document` �
 
 - `Document.title`：获取或设置当前文档的标题。
 - `Document.URL`：以字符串形式返回文档的地址栏链接。
-- `Document.domain`：获取或设置当前文档的域名。
+- `Document.domain`：获取或设置当前文档的原始域部分，常用于同源策略。
 - `Document.referrer`：返回来源页面的 URI。
 - `Document.cookie`：返回一个使用分号分隔的 `cookie` 列表，或设置（写入）一个 `cookie`。
 

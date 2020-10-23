@@ -67,3 +67,39 @@ history.scrollRestoration && history.scrollRestoration = 'auto';
 **相关事件**：
 
 - **`window.onpopstate`**：在文档不变的情况下，监听路由的变化。主要包括前进、后退以及路由锚点的变化。事件对象的 `state` 属性表示当前会话的状态对象。
+
+### `window.location`
+
+`window.location` 只读属性，返回一个 `Location` 对象的引用，其中包含有关文档当前的URL信息。
+
+**属性**：
+
+- **`Location.href`**：完整的URL。
+- **`Location.protocol`**：URL对应的协议，字符串最后有一个冒号 ":"。
+- **`Location.host`**：域名+端口号。
+- **`Location.hostname`**：URL对应的域名。
+- **`Location.host`**：URL对应的端口号，由URL字符串导出，如果采用默认端口号，则返回空字符串 ""。
+- **`Location.pathname`**：URL的路径部分，开头有一个 "/"。
+- **`Location.search`**：URL的查询参数部分，开头有一个 "?"。
+- **`Location.hash`**：URL的hash部分，开头有一个 "#"。
+- **`Location.origin`**：页面的来源（协议+主机名+端口号）。
+
+```javascript
+var url = document.createElement('a');
+url.href = 'https://developer.mozilla.org/en-US/search?q=URL#search-results-close-container';
+console.log(url.href);      // https://developer.mozilla.org/en-US/search?q=URL#search-results-close-container
+console.log(url.protocol);  // https:
+console.log(url.host);      // developer.mozilla.org
+console.log(url.hostname);  // developer.mozilla.org
+console.log(url.port);      // (blank - https assumes port 443)
+console.log(url.pathname);  // /en-US/search
+console.log(url.search);    // ?q=URL
+console.log(url.hash);      // #search-results-close-container
+console.log(url.origin);    // https://developer.mozilla.org
+```
+
+**方法**：
+
+- **`Location.assign()`**：等同于 `location.href = url`。
+- **`Location.replace()`**：用给定的URL替换掉当前的资源，无法返回至原页面。
+- **`Location.reload()`**：刷新当前页面。该方法只有一个参数，当值为 `true` 时，将强制浏览器从服务器加载页面资源，当值为 `false` 或者未传参时，浏览器则可能从缓存中读取页面。
