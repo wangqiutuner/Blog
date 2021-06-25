@@ -57,6 +57,10 @@ $ git checkout <branchname> # 切换分支
 $ git checkout -b <branchname> # 基于当前分支创建新的分支并切换分支
 
 $ git merge # 合并分支并提交
+
+$ git rebase # 合并分支(当前分支的内容在最前面)
+$ git rebase --continue # 继续rebase
+$ git rebase --abort # 取消rebase
 ```
 
 ## 二、 远程操作
@@ -69,6 +73,8 @@ $ git remote add origin git@.... # 关联后远程库的默认名字就是origin
 
 $ git remote    # 查看远程库信息
 $ git remote -v # 查看远程库详细信息
+$ git remote show origin # 查看远程库信息，远程分支，还有本地分支与之相对应的关系等信息
+$ git remote prune origin # 在本地删除远程不存在的分支
 
 # 建立远程分支与本地分支的关联
 $ git branch --set-upstream <branchname> origin/<branchname>
@@ -90,6 +96,8 @@ $ git push # 关联后可以直接推至关联分支
 ```bash
 # 拉取origin/<branchname>但不合并
 git fetch origin <branchname>
+# 拉取远程分支到本地
+git checkout -b <branchname> origin/<branchname>
 
 # 拉取origin/<branchname>并合并
 git pull origin <branchname> # 相当于git fetch origin <branchname> + git merge origin/<branchname>
