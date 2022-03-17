@@ -52,11 +52,13 @@ $ git branch -a # 列出所有分支
 $ git branch <branchname> # 基于当前分支创建新的分支
 $ git branch -d <branchname> # 删除分支（如果分支没有合并会删除失败）
 $ git branch -D <branchname> # 删除分支（即使分支没有被合并也强制删除）
+$ git branch -r -D origin/<branchname> # 删除本地的远程分支
 
 $ git checkout <branchname> # 切换分支
 $ git checkout -b <branchname> # 基于当前分支创建新的分支并切换分支
 
 $ git merge # 合并分支并提交
+$ git merge --abort # 取消merge
 
 $ git rebase # 合并分支(当前分支的内容在最前面)
 $ git rebase --continue # 继续rebase
@@ -70,6 +72,7 @@ $ git rebase --abort # 取消rebase
 ```bash
 # 将本地库与远程库相关联
 $ git remote add origin git@.... # 关联后远程库的默认名字就是origin
+$ git remote remove origin # 取消本地目录下关联的远程库
 
 $ git remote    # 查看远程库信息
 $ git remote -v # 查看远程库详细信息
@@ -111,4 +114,16 @@ $ git pull # 关联后可以直接拉取关联分支
 # 设置用户名和邮箱
 git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
+```
+
+## 四、子仓库
+
+```bash
+# git subtree
+git subtree add   --prefix=<prefix> <repository> <ref> --squash
+git subtree pull  --prefix=<prefix> <repository> <ref> --squash
+git subtree push  --prefix=<prefix> <repository> <ref>
+
+# 可能出现的问题：Working tree has modifications.  Cannot add.
+# 这个问题是因为 git diff-index HEAD 返回结果，即使本地没提交，解决这个问题很简单。切换到本地另一个分支然后切换回来，这样就可以解决
 ```
