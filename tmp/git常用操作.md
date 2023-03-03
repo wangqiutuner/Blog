@@ -127,3 +127,25 @@ git subtree push  --prefix=<prefix> <repository> <ref>
 # 可能出现的问题：Working tree has modifications.  Cannot add.
 # 这个问题是因为 git diff-index HEAD 返回结果，即使本地没提交，解决这个问题很简单。切换到本地另一个分支然后切换回来，这样就可以解决
 ```
+
+## 五、Git Flow
+
+```bash
+# 初始化git flow
+git flow init
+
+# 创建功能分支 feature、release（一般不需要）、hotfix、bugfix
+git flow feature start XXX
+
+# 将功能分支发布到远程
+git flow feature publish XXX
+
+# 删除功能分支
+git flow feature delete XXX
+
+# 完成功能分支
+git flow feature finish XXX
+- r # merge前先进行rebase操作
+- F # merge操作完成后删除远程和本地feature分支
+- k # 保留feature分支
+```
