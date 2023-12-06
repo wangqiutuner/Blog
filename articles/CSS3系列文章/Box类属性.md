@@ -36,7 +36,7 @@ box-shadow: 10px 5px 5px red;
 box-shadow: 10px -5px 5px red;
 ```
 
-<p style="width:8em;border:1px solid;padding:5px;box-shadow: 10px -5px red;">该盒子外有阴影</p>
+<p style="width:8em;border:1px solid;padding:5px;box-shadow: 10px -5px 5px red;">该盒子外有阴影</p>
 
 ```css
 box-shadow: 0 0 2px 2px red;
